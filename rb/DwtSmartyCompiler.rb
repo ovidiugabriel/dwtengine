@@ -1,1 +1,4 @@
 # DwtSmartyCompiler
+
+class DwtSmartyCompiler
+end
