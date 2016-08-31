@@ -1,1 +1,4 @@
 # DwtParser
+
+class DwtParser
+end
