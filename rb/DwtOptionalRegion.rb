@@ -1,1 +1,4 @@
 # DwtOptionalRegion
+
+class DwtOptionalRegion
+end
