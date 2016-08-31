@@ -1,1 +1,4 @@
 # DwtFile
+
+class DwtFile
+end
