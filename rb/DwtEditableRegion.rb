@@ -1,1 +1,4 @@
 # DwtEditableRegion
+
+class DwtEditableRegion
+end
