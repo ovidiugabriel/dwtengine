@@ -1,1 +1,4 @@
 # DwtRepeatingRegion
+
+class DwtRepeatingRegion
+end
