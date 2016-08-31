@@ -1,0 +1,3 @@
+
+class StaticOutputCollector
+end
