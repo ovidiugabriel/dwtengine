@@ -27,10 +27,7 @@ WS  :   ( ' '
 STRING
     :  '\'' ( ESC_SEQ | ~('\\'|'\'') )* '\''
     ;
-/*
-CHAR:  '\'' ( ESC_SEQ | ~('\''|'\\') ) '\''
-    ;
-*/
+
 fragment
 EXPONENT : ('e'|'E') ('+'|'-')? ('0'..'9')+ ;
 
@@ -55,9 +52,6 @@ fragment
 UNICODE_ESC
     :   '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
     ;
-
-TEXT	:	
-	;
 
 compilation_unit
 	:	root_tag
