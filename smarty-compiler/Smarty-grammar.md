@@ -72,3 +72,33 @@
 {html_options output=$my_array|upper|truncate:20}
 </select>
 ```
+### Variable assignment
+
+####  Simple assignment
+
+```smarty
+{$name='Bob'}
+```
+
+#### Assignment with math
+
+```smarty
+{$running_total=$running_total+$some_array[row].some_value}
+```
+
+#### Assignment of an array element
+
+```smarty
+{$user.name="Bob"}
+```
+
+#### Assignment of an multidimensional array element
+
+```smarty
+{$user.name.first="Bob"}
+```
+#### Appending an array
+
+```smarty
+{$users[]="Bob"}
+```
