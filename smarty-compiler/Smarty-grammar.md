@@ -1,4 +1,10 @@
 
+### Comment
+
+```smarty
+{* this will work *}
+```
+
 ### Variables
 
 #### Simple variables
