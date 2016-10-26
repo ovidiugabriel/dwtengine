@@ -54,13 +54,15 @@ UNICODE_ESC
     ;
 
 compilation_unit
-	:	root_tag
+	:	tag
 	;
 
-root_tag:	tag
+tag	:	
+	|	smarty_tag
+	|	html_tag
 	;
-	
-tag	:	'<' tag_name attr_list? '>' cdata '</' tag_name '>'
+
+html_tag	:	'<' tag_name attr_list? '>' cdata '</' tag_name '>'
 	|	'<' tag_name attr_list? '/' '>'
 	;
 	
@@ -76,9 +78,14 @@ attr_value
 	:	.* ;
 
 attribute
-	:	attr_name '=' '"' attr_value  '"'
+	:	attr_name '=' '"' attr_value '"'
+		
 	;
 
 attr_list
 	:	attribute+
+	;
+	
+smarty_tag
+	:	'{' tag_name attr_list?  '}'
 	;
