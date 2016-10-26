@@ -102,3 +102,18 @@
 ```smarty
 {$users[]="Bob"}
 ```
+
+### Iterators
+
+```smarty
+{* output empty row on the 4th iteration (when index is 3) *}
+<table>
+{foreach $items as $i}
+  {if $i@index eq 3}
+     {* put empty table row *}
+     <tr><td>nbsp;</td></tr>
+  {/if}
+  <tr><td>{$i.label}</td></tr>
+{/foreach}
+</table>
+```
