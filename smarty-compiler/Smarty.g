@@ -25,8 +25,9 @@ WS  :   ( ' '
     ;
 
 STRING
-    :  '\'' ( ESC_SEQ | ~('\\'|'\'') )* '\''
-    ;
+    	: '\'' .* '\''
+	| '"' .* '"'
+    	;
 
 fragment
 EXPONENT : ('e'|'E') ('+'|'-')? ('0'..'9')+ ;
@@ -74,12 +75,17 @@ cdata	:	.* ;
 attr_name
 	:	ID;
 
-attr_value
-	:	.* ;
 
 attribute
-	:	attr_name '=' '"' attr_value '"'
+	:	attr_name '=' attr_value
 		
+	;
+	
+attr_value
+	:	STRING
+	|	INT
+	|	FLOAT
+	|	ID
 	;
 
 attr_list
