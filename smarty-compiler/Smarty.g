@@ -11,12 +11,11 @@ FLOAT
     |   '.' ('0'..'9')+ EXPONENT?
     |   ('0'..'9')+ EXPONENT
     ;
-
+/*
 COMMENT
-    :   '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
-    |   '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
+    :   '{*' ( options {greedy=false;} : . )* '*}' {$channel=HIDDEN;}
     ;
-
+*/
 WS  :   ( ' '
         | '\t'
         | '\r'
@@ -93,5 +92,6 @@ attr_list
 	;
 	
 smarty_tag
-	:	'{' tag_name attr_list?  '}'
+	:	'{*' ( options {greedy=false;} : . )* '*}'
+	| 	'{' tag_name attr_list?  '}'
 	;
