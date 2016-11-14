@@ -62,7 +62,8 @@ tag	:
 	|	html_tag
 	;
 
-html_tag	:	'<' tag_name attr_list? '>' cdata '</' tag_name '>'
+html_tag	
+        :       '<' tag_name attr_list? '>' cdata '</' tag_name '>'
 	|	'<' tag_name attr_list? '/' '>'
 	;
 	
