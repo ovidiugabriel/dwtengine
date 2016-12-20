@@ -1,9 +1,9 @@
 grammar Smarty;
 
-ID  :	('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
+ID  :   ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
     ;
 
-INT :	'0'..'9'+
+INT :   '0'..'9'+
     ;
 
 FLOAT
@@ -11,11 +11,13 @@ FLOAT
     |   '.' ('0'..'9')+ EXPONENT?
     |   ('0'..'9')+ EXPONENT
     ;
+
 /*
 COMMENT
     :   '{*' ( options {greedy=false;} : . )* '*}' {$channel=HIDDEN;}
     ;
 */
+
 WS  :   ( ' '
         | '\t'
         | '\r'
@@ -24,9 +26,9 @@ WS  :   ( ' '
     ;
 
 STRING
-    	: '\'' .* '\''
-	| '"' .* '"'
-    	;
+    : '\'' .* '\''      /* simple quotes string */
+    | '"' .* '"'        /* double quotes string */
+    ;
 
 fragment
 EXPONENT : ('e'|'E') ('+'|'-')? ('0'..'9')+ ;
@@ -52,47 +54,30 @@ fragment
 UNICODE_ESC
     :   '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
     ;
+    
+/* https://gist.github.com/tkqubo/2842772 */
 
-compilation_unit
-	:	tag
-	;
+tag_open
+    :   '<' tag_name attr_list?  '>'    /* includes the autoclosing tag */
+    |   '<' tag_name attr_list?  '>' '</' tag_name '>'
+    ;
 
-tag	:	
-	|	smarty_tag
-	|	html_tag
-	;
-
-html_tag	
-        :       '<' tag_name attr_list? '>' cdata '</' tag_name '>'
-	|	'<' tag_name attr_list? '/' '>'
-	;
-	
 tag_name 
-	:	ID;
-	
-cdata	:	.* ;
+    :    ID;
+    
+attr_list
+    :   attr+
+    ;
+
+attr    :   attr_name ('=' attr_value)?
+    ;
 
 attr_name
-	:	ID;
-
-
-attribute
-	:	attr_name '=' attr_value
-		
-	;
-	
+    :   ID;
+    
 attr_value
-	:	STRING
-	|	INT
-	|	FLOAT
-	|	ID
-	;
-
-attr_list
-	:	attribute+
-	;
-	
-smarty_tag
-	:	'{*' ( options {greedy=false;} : . )* '*}'
-	| 	'{' tag_name attr_list?  '}'
-	;
+    :   STRING
+    |   INT
+    |   FLOAT
+    |   ID
+;
