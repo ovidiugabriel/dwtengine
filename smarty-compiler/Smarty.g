@@ -1,83 +1,74 @@
 grammar Smarty;
 
-ID  :   ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
-    ;
+ID  	:   ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
+	;
 
-INT :   '0'..'9'+
-    ;
+INT 	:   '0'..'9'+
+    	;
 
 FLOAT
-    :   ('0'..'9')+ '.' ('0'..'9')* EXPONENT?
-    |   '.' ('0'..'9')+ EXPONENT?
-    |   ('0'..'9')+ EXPONENT
-    ;
+    	:   ('0'..'9')+ '.' ('0'..'9')* EXPONENT?
+    	|   '.' ('0'..'9')+ EXPONENT?
+    	|   ('0'..'9')+ EXPONENT
+    	;
 
-/*
 COMMENT
-    :   '{*' ( options {greedy=false;} : . )* '*}' {$channel=HIDDEN;}
-    ;
-*/
+    	:   '{*' ( options {greedy=false;} : . )* '*}' {$channel=HIDDEN;}
+    	;
 
-WS  :   ( ' '
-        | '\t'
-        | '\r'
-        | '\n'
-        ) {$channel=HIDDEN;}
-    ;
+WS  	:   ( ' '
+        	| '\t'
+        	| '\r'
+        	| '\n'
+        	) {$channel=HIDDEN;}
+    	;
 
 STRING
-    : '\'' .* '\''      /* simple quotes string */
-    | '"' .* '"'        /* double quotes string */
-    ;
+    	: '\'' .* '\''      /* simple quotes string */
+    	| '"' .* '"'        /* double quotes string */
+    	;
 
 fragment
-EXPONENT : ('e'|'E') ('+'|'-')? ('0'..'9')+ ;
+EXPONENT 	: ('e'|'E') ('+'|'-')? ('0'..'9')+ ;
 
 fragment
-HEX_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F') ;
+HEX_DIGIT 	: ('0'..'9'|'a'..'f'|'A'..'F') ;
 
 fragment
 ESC_SEQ
-    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
-    |   UNICODE_ESC
-    |   OCTAL_ESC
-    ;
+    	:   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
+    	|   UNICODE_ESC
+    	|   OCTAL_ESC
+    	;
 
 fragment
 OCTAL_ESC
-    :   '\\' ('0'..'3') ('0'..'7') ('0'..'7')
-    |   '\\' ('0'..'7') ('0'..'7')
-    |   '\\' ('0'..'7')
-    ;
+   	 :   '\\' ('0'..'3') ('0'..'7') ('0'..'7')
+    	|   '\\' ('0'..'7') ('0'..'7')
+    	|   '\\' ('0'..'7')
+    	;
 
 fragment
 UNICODE_ESC
-    :   '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
-    ;
+    	:   '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+    	;
     
 /* https://gist.github.com/tkqubo/2842772 */
 
-tag_open
-    :   '<' tag_name attr_list?  '>'    /* includes the autoclosing tag */
-    |   '<' tag_name attr_list?  '>' '</' tag_name '>'
-    ;
+compilation_unit
+	:	tag*
+	;
 
-tag_name 
-    :    ID;
+tag
+	:   '<' tag_name attr_list?  '>'    /* includes the autoclosing tag */
+	|   '<' tag_name attr_list?  '>' '</' tag_name '>'
+	|   '{' tag_name attr_list? '}'
+	|   '{' tag_name attr_list? '}' '{/' tag_name '}'
+    	;
+
+tag_name 	:   ID;
+attr_list	:   attr+ ;
+attr    	:   attr_name ('=' attr_value)?;
+attr_name	:   ID;
     
-attr_list
-    :   attr+
-    ;
-
-attr    :   attr_name ('=' attr_value)?
-    ;
-
-attr_name
-    :   ID;
-    
-attr_value
-    :   STRING
-    |   INT
-    |   FLOAT
-    |   ID
-;
+attr_value	:   STRING | INT | FLOAT | ID ;
