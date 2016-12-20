@@ -16,3 +16,11 @@ export CLASSPATH=".:$CLASSPATH:$ANTLR3"
 ```
 antlr3 -o ./smarty Smarty.g 
 ```
+
+#### Run
+
+```
+cd ./smarty
+javac *.java
+java ParserFacade
+```
