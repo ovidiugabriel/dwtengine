@@ -62,9 +62,18 @@ compilation_unit
 tag
 	:   '<' tag_name attr_list?  '>'    /* includes the autoclosing tag */
 	|   '<' tag_name attr_list?  '>' '</' tag_name '>'
+	|   '{' smarty_variable '}'		/* This prints the value of variable */
 	|   '{' tag_name attr_list? '}'
 	|   '{' tag_name attr_list? '}' '{/' tag_name '}'
     	;
+
+member	:  '.' ID
+	| '[' ( ID | STRING | smarty_variable ) ']'
+	;
+
+smarty_variable
+	:  '$' ID member*	/* includes member reference */
+	;
 
 tag_name 	:   ID;
 attr_list	:   attr+ ;
