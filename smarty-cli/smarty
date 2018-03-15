@@ -5,7 +5,108 @@ require_once "smarty-3.1.30/libs/Smarty.class.php";
 
 if (isset($argv[1])) {
     $smarty = new Smarty();
+
+    // "smarty-escapade" is using asp specific format
+    $smarty->left_delimiter = '<%';
+    $smarty->right_delimiter = '%>';
+
+    $esp_vars = array(
+        'LONGNOW' => now(), // traditionally, The current time (in seconds, from January 1, 1970)
+        'H'       => 0, // The current hour (one or two digits, 24 hour format)
+        'HH'      => 0, // The current hour (two digits, 24 hour format)
+        'HHH'     => 0, // The current hour (one or two digits, 12 hour format)
+        'N'       => 0, // The current minute (one or two digits)
+        'NN'      => 0, // The current minute (two digits)
+        'D'       => 0, // The current day of the month (one or two digits)
+        'DD'      => 0, // The current day of the month (two digits)
+        'YY'      => 0, // The current year (last two digits)
+        'YYYY'    => 0, // The current year (four digits)
+        'WD'      => 0, // The current day of the week (one digit, Sunday = 0)
+        'MONTH'   => 0, // The current month name
+        'DAY'     => 0, // The current day of the week name
+        'TOD'     => tod(), // Either morning, afternoon or evening
+        'AMPM'    => 0, // Either "AM" or "PM"
+        'PID'     => getmypid(), // Process ID of the currently running process
+    );
+    $smarty->assign('esp', $esp_vars);
+
+    // functions
+    $smarty->registerPlugin('function', 'esp', Escapade::getFunction('esp'));
+    $smarty->registerPlugin('function', 'dbopen', Escapade::getFunction('dbopen'));
+    $smarty->registerPlugin('function', 'stop', Escapade::getFunction('stop'));
+    $smarty->registerPlugin('function', 'recordcount', Escapade::getFunction('recordcount'));
+    // <format>
+    // <eval>
+    // <mid>
+    // <md5>
+    // <showfile>
+    // <showhtml>
+    // <showmail>
+    // <showemail>
+    // <showbody>
+    // <showreply>
+    // <showheader>
+    // <runcmd>
+    
+    // Can be used as a tag (without calling parentheses)
+    $smarty->registerPlugin('function', 'tod', 'tod');
+    $smarty->registerPlugin('function', 'now', 'now');
+
+    // blocks
+    $smarty->registerPlugin('block', 'sql', Escapade::getBlock('sql'));
+
+    // render
     $smarty->display($argv[1]);
 }
 
-// EOF
+// The current time (in seconds, from January 1, 1970)
+function now() { return time(); }
+
+// Either morning, afternoon or evening
+function tod() {
+    return "TimeOfDay";
+}
+
+// ---
+
+class Escapade {
+    private function __construct() {}
+    
+    static private function getInstance() {
+        $class = __CLASS__;
+        static $instance = null;
+        
+        if (null == $instance) {
+            $instance = new $class();
+        }
+        return $instance;
+    }
+
+    static public function getFunction($func) {
+        return array(self::getInstance(), 'function_' . $func);
+    }
+    
+    static public function getBlock($func) {
+        return array(self::getInstance(), 'block_' . $func);
+    }
+
+    public function function_esp(array $params, Smarty_Internal_Template $tpl) {
+        print_r($params);
+    }
+
+    public function function_dbopen(array $params, $tpl) {
+        print_r($params);
+    }
+
+    public function block_sql(array $params, $content, Smarty_Internal_Template $tpl, &$repeat) {
+        print_r($params);
+    }
+
+    public function function_recordcount(array $params, $tpl) {
+        print_r($params);
+    }
+
+    public function function_stop(array $params, $tpl) {
+        print_r($params);
+    }
+}
