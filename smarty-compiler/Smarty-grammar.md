@@ -61,10 +61,39 @@ The checker validates the template file only if `$product` is an instance of a t
 {$foo[4]}     
 ```
 
+#### Variable key value
+
+```smarty
+{* display variable key value of an array, similar to PHP $foo[$bar] *}
+
+{$foo.$bar}
+```
+
+#### Object Property
+```smarty
+{* display the object property "bar" *}
+
+{$foo->bar}
+```
+
+### Object Method
+```smarty
+{* display the return value of object method "bar" *}
+
+{$foo->bar()}
+```
+
+
 #### Config variables
 
 ```smarty
 <body bgcolor="{#bgcolor#}">
+
+{* display the config file variable "foo" *}
+{#foo#}
+
+{* synonym for {#foo#} *}
+{$smarty.config.foo}
 ```
 The same as _Simple variables_ but the compiler is able to look into the config file where the config variables are defined.
 
