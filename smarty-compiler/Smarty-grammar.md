@@ -1,4 +1,6 @@
 
+The checker validates the templates against rules in a metadata file.
+
 ### Comment
 
 ```smarty
@@ -17,10 +19,14 @@
 {$Name}
 ```
 
+The checker validates the template file only if `$Name` variable is declared in the meta file.
+
 #### Object member style
 ```smarty
 {$product.part_no} <b>{$product.description}</b>
 ```
+
+The checker validates the template file only if `$product` is an instance of a type that has `part_no` and `description` members.
 
 #### Dictionary key style
 ```smarty
@@ -32,6 +38,9 @@
 ```smarty
 <body bgcolor="{#bgcolor#}">
 ```
+
+The same as _Simple variables_ but the compiler is able to look into the config file where the config variables are defined.
+
 ### Modifiers
 
 #### Modifier to a variable
@@ -39,6 +48,8 @@
 ```smarty
 {$title|upper}
 ```
+
+The checker validates the template file only if `$title` is  declared in the meta file and `upper` (the modififer) is a known modifier.
 
 #### Modifier with parameters
 
