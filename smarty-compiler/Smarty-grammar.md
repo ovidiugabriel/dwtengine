@@ -3,6 +3,11 @@
 
 ```smarty
 {* this will work *}
+
+{* this multiline smarty
+   comment is
+   not sent to browser
+*}
 ```
 
 ### Variables
