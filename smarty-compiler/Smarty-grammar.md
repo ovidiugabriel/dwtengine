@@ -1,6 +1,25 @@
 
 The checker validates the templates against rules in a metadata file.
 
+#### Delimiters
+
+I want to be able to specify `left_delimiter` and `right_delimiter`.
+For example
+
+```
+left_delimiter={{
+right_delimiter=}}
+```
+
+In this case `{{` will be used instead of `{` and `}}` will be used instead of `}`.
+
+Or
+
+```
+left_delimiter=<%
+right_delimiter=%>
+```
+
 ### Comment
 
 ```smarty
@@ -13,6 +32,8 @@ The checker validates the templates against rules in a metadata file.
 ```
 
 ### Variables
+
+Source Document: https://www.smarty.net/docs/en/language.syntax.variables.tpl
 
 #### Simple variables
 ```smarty
@@ -31,6 +52,13 @@ The checker validates the template file only if `$product` is an instance of a t
 #### Dictionary key style
 ```smarty
 {$Contacts[row].Phone}
+```
+
+#### Vector key style
+```smarty
+{* display the 5th element of a zero-indexed array *}
+
+{$foo[4]}     
 ```
 
 #### Config variables
