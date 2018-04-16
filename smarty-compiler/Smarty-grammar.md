@@ -38,8 +38,9 @@ The checker validates the template file only if `$product` is an instance of a t
 ```smarty
 <body bgcolor="{#bgcolor#}">
 ```
-
 The same as _Simple variables_ but the compiler is able to look into the config file where the config variables are defined.
+
+The compiler looks for `{config_load file=...}`, parse the config file and append the configuration variables to metadata, being able to validate config variables usage against config files content.
 
 ### Modifiers
 
@@ -56,6 +57,10 @@ The checker validates the template file only if `$title` is  declared in the met
 ```smarty
 {$title|truncate:40:"..."}
 ```
+
+The checker validates modifier declaration, arity and parameter types against the meta file. To check arity,
+it is considered, if the parameter is required/optional and the default value of the parameter.
+
 #### Modifier to a function parameter
 
 ```smarty
