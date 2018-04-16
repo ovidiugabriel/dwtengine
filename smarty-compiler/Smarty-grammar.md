@@ -49,6 +49,10 @@ The checker validates the template file only if `$Name` variable is declared in 
 
 The checker validates the template file only if `$product` is an instance of a type that has `part_no` and `description` members.
 
+```smarty
+{$foo.a.b.c}        {* =>  $foo['a']['b']['c']  *}
+```
+
 #### Section variable key style
 
 ```smarty
@@ -70,8 +74,13 @@ The checker validates the template file only if `$product` is an instance of a t
 
 ```smarty
 {* display variable key value of an array, similar to PHP $foo[$bar] *}
-
 {$foo.$bar}
+
+{$foo.a.$b.c}      {* =>  $foo['a'][$b]['c']         // with variable index *}
+
+{$foo.a.{$b+4}.c}   {* =>  $foo['a'][$b+4]['c']       // with expression as index *}
+{$foo.a.{$b.c}}     {* =>  $foo['a'][$b['c']]         // with nested index *}
+
 ```
 
 #### Object Property
