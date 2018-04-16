@@ -49,9 +49,14 @@ The checker validates the template file only if `$Name` variable is declared in 
 
 The checker validates the template file only if `$product` is an instance of a type that has `part_no` and `description` members.
 
-#### Dictionary key style
+#### Section variable key style
+
 ```smarty
 {$Contacts[row].Phone}
+
+{* syntax only valid in a section loop, see {section} *}
+{$foo[bar]}
+
 ```
 
 #### Vector key style
