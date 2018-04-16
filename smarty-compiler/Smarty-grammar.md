@@ -29,47 +29,48 @@
 ```
 ### Modifiers
 
-#### modifier to a variable
+#### Modifier to a variable
 
 ```smarty
 {$title|upper}
 ```
 
-#### modifier with parameters
+#### Modifier with parameters
 
 ```smarty
 {$title|truncate:40:"..."}
 ```
-#### modifier to a function parameter
+#### Modifier to a function parameter
 
 ```smarty
 {html_table loop=$myvar|upper}
 ```
 
-#### modifier with parameters to a function parameter
+#### Modifier with parameters to a function parameter
 
 ```smarty
 {html_table loop=$myvar|truncate:40:"..."}
 ```
 
-#### modifier to literal string
+#### Modifier to literal string
 
 ```smarty
 {"foobar"|upper}
 ```
 
-#### modifier to a custom function
+#### Modifier to a custom function
 
 ```smarty
 {mailto|upper address="smarty@example.com"}
 ```
 
-#### modifiers on array
+#### Modifiers on array
 
 ```smarty
 {* this will uppercase and truncate the whole array *}
+
 <select name="name_id">
-{html_options output=$my_array|upper|truncate:20}
+  {html_options output=$my_array|upper|truncate:20}
 </select>
 ```
 ### Variable assignment
@@ -107,6 +108,7 @@
 
 ```smarty
 {* output empty row on the 4th iteration (when index is 3) *}
+
 <table>
 {foreach $items as $i}
   {if $i@index eq 3}
