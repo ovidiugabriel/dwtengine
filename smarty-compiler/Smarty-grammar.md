@@ -171,6 +171,10 @@ it is considered, if the parameter is required/optional and the default value of
 
 ```smarty
 {$name='Bob'}
+
+{* or *}
+
+{assign var=name value='Bob'}
 ```
 
 #### Assignment with math
