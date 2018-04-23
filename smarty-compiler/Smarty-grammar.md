@@ -105,8 +105,10 @@ The checker validates the template file only if `$product` is an instance of a t
 {* display the return value of object method "bar" *}
 
 {$foo->bar()}
-```
 
+{$foo->bar($baz, 2, $bar)} {* passing parameters for bar/3 *}
+
+```
 
 #### Config variables
 
