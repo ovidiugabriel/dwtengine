@@ -75,6 +75,7 @@ The checker validates the template file only if `$product` is an instance of a t
 ```smarty
 {* display variable key value of an array, similar to PHP $foo[$bar] *}
 {$foo.$bar}
+{$foo.$bar.$baz}
 
 {$foo.a.$b.c}      {* =>  $foo['a'][$b]['c']         // with variable index *}
 
