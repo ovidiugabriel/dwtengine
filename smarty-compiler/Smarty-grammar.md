@@ -102,7 +102,7 @@ The checker validates the template file only if `$product` is an instance of a t
 {$foo->bar}
 ```
 
-### Object Method
+#### Object Method
 ```smarty
 {* display the return value of object method "bar" *}
 
@@ -110,6 +110,12 @@ The checker validates the template file only if `$product` is an instance of a t
 
 {$foo->bar($baz, 2, $bar)} {* passing parameters for bar/3 *}
 
+```
+
+#### Object Method chaining
+
+```smarty
+{$object->method1($x)->method2($y)}
 ```
 
 #### Config variables
@@ -234,4 +240,9 @@ it is considered, if the parameter is required/optional and the default value of
   <tr><td>{$i.label}</td></tr>
 {/foreach}
 </table>
+```
+
+### Direct Function Call
+```smarty
+{time()}
 ```
