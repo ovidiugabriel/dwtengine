@@ -83,6 +83,15 @@ The checker validates the template file only if `$product` is an instance of a t
 {$foo.a.{$b.c}}     {* =>  $foo['a'][$b['c']]         // with nested index *}
 
 ```
+#### Combinations 
+##### (vectory key style, object member style, variable key)
+
+```smarty
+{$foo[4].baz}  {* Vector key style and object member style *}
+{$foo[4].$baz} {* Vector key style and variable key *}
+{$foo.bar.baz[4]} {* Object member style and vector key style *}
+
+```
 
 #### Object Property
 ```smarty
