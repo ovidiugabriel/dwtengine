@@ -68,6 +68,8 @@ The checker validates the template file only if `$product` is an instance of a t
 {* display the 5th element of a zero-indexed array *}
 
 {$foo[4]}     
+
+{$foo[$x+3]} {* supports expressions *}
 ```
 
 #### Variable key value
@@ -187,6 +189,12 @@ it is considered, if the parameter is required/optional and the default value of
 {* or *}
 
 {assign var=name value='Bob'}
+{assign var=foo value=$x+$y}
+
+{assign var=foo value=[1,2,3]}
+{assign var=foo value=['y'=>'yellow','b'=>'blue']}
+{assign var=foo value=[1,[9,8],3]}   {* can be nested *}
+
 ```
 
 #### Assignment with math
